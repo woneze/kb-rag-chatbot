@@ -1,107 +1,109 @@
 # 🏡 KB 부동산 RAG 챗봇
 
-LangChain과 Streamlit을 활용하여 **2024 KB 부동산 보고서** 기반 질의응답 서비스를 구현한 RAG 챗봇입니다.  
-문서를 벡터화하고 검색 가능한 형태로 만들어, 사용자 질문에 대해 실제 문서 기반의 답변을 제공합니다.
+**2024 KB 부동산 보고서**를 기반으로 질문에 자동으로 응답하는 **RAG(Retrieval-Augmented Generation)** 기반 AI 챗봇입니다.  
+PDF 문서에서 지식을 추출하고, 벡터 검색 + GPT-4o-mini 모델을 통해 실시간 질문 응답이 가능합니다.
+
+<p align="center">
+  <img src="./assets/pipeline.png" alt="KB RAG Pipeline" width="720"/>
+</p>
 
 ---
 
 ## 📌 주요 기능
 
-- 📄 **PDF 문서 기반 RAG 구성**  
-- 💬 **Streamlit 기반 직관적 챗 UI**  
-- 🧠 **LangChain + OpenAI GPT-4o-mini** 활용  
-- 🧭 **대화 기록(Session State) 관리**
+- `PDF` 문서 자동 분석 및 청크 단위 분리
+- `OpenAI Embedding` 기반 벡터 생성
+- `Chroma` 벡터 DB 저장 및 검색
+- `GPT-4o-mini`를 통한 문맥 기반 응답 생성
+- `Streamlit` 기반 UI 제공
 
 ---
 
-## 🛠️ 사용 기술
+## 🧭 시스템 아키텍처
 
-| 항목 | 내용 |
-|------|------|
-| 언어 | Python 3.10+ |
-| 주요 라이브러리 | LangChain, Streamlit, OpenAI, Chroma |
-| 벡터 DB | ChromaDB |
-| LLM | GPT-4o-mini (OpenAI) |
+> 아래 다이어그램은 전체 데이터 흐름 및 처리 과정을 보여줍니다.
 
----
-
-## 📂 프로젝트 구조
-
-```
-kb-rag-chatbot
-┣ data/
-┃ ┗ 2024_KB_부동산_보고서_최종.pdf (※ GitHub에는 포함되어 있지 않음)
-┣ app.py
-┣ .env.example
-┣ requirements.txt
-┗ README.md
-```
+- 📄 PDF 문서 → 텍스트 청크 → 벡터 임베딩
+- 🗃️ Chroma 벡터 DB 저장
+- 💬 사용자 질문 → 유사 문서 검색 → GPT 응답
+- 🌐 Streamlit을 통한 결과 표시
 
 ---
 
-## 🚀 실행 방법
+## 🛠 기술 스택
 
-### 1. 저장소 클론
-
-```bash
-git clone https://github.com/woneze/kb-rag-chatbot.git
-cd kb-rag-chatbot
-```
-
-### 2. 가상환경 설정 (선택)
-
-```bash
-python -m venv venv
-source venv/bin/activate  # macOS / Linux
-venv\Scripts\activate     # Windows
-```
-
-### 3. 패키지 설치
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. 환경 변수 설정
-
-`.env` 파일 생성:
-
-```env
-# .env
-OPENAI_API_KEY=your_openai_key_here
-```
-
-### 5. Streamlit 실행
-
-```bash
-streamlit run app.py
-```
+| 영역 | 사용 기술 |
+|------|-----------|
+| 문서 로더 | LangChain (PyPDFLoader) |
+| 텍스트 분리 | RecursiveCharacterTextSplitter |
+| 벡터 임베딩 | OpenAI Embeddings (text-embedding-3-small) |
+| 벡터 저장소 | ChromaDB |
+| 언어 모델 | OpenAI GPT-4o-mini |
+| 인터페이스 | Streamlit |
+| 기타 설정 | dotenv, 캐싱, 세션 관리 등 |
 
 ---
 
-## 📁 데이터 파일 주의
+## 📁 프로젝트 구조
 
-> 해당 저장소는 **KB 부동산 보고서 PDF 파일을 포함하지 않습니다.**
+```
+📦 2024_KB_chatbot/
+├── app.py                   
+├── data/                    
+│   └── 2024_KB_부동산_보고서_최종.pdf
+├── .env                      
+├── requirements.txt
+└── README.md        
 
-👇 아래 링크에서 직접 다운로드 후 `data/` 폴더에 넣어주세요:
-
-📥 [2024 KB 부동산 보고서 다운로드](https://www.kbfg.com/kbresearch/report/reportView.do?reportId=2000450)
-
-- 파일명: `2024_KB_부동산_보고서_최종.pdf`
-- 위치: `kb-rag-chatbot/data/`
-
----
-
-## ✨ 미리보기
-
-> 아래는 KB 부동산 보고서 기반 질의응답 예시입니다.
-
-![kb-rag-chatbot-ui](./assets/kb_chatbot_demo.png)
 
 ---
 
-## 📚 참고 자료
+## ▶️ 실행 방법
+
+1. **의존성 설치**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **.env 파일 생성 후 API 키 추가**
+   ```env
+   OPENAI_API_KEY=sk-xxxx...
+   ```
+
+3. **앱 실행**
+   ```bash
+   streamlit run app.py
+   ```
+
+---
+
+## 📸 미리보기 (UI 예시)
+
+<p align="center">
+  <img src="./assets/kb_chatbot_demo.png" alt="KB Chatbot Preview" width="640"/>
+</p>
+
+---
+
+## ✅ 사용 예시
+
+- 질문: *"KB는 올해 아파트 매매 시장을 어떻게 전망하고 있나요?"*
+- 응답: *(보고서의 실제 내용을 기반으로 GPT가 응답)*
+
+---
+
+## 📌 참고
+
+- 보고서 출처: [KB부동산 리브온](https://kbrealestate.com)
+- Chat Model: GPT-4o-mini (`gpt-4o-mini`)
 
 - [LangChain 공식 문서](https://docs.langchain.com/)
 - [OpenAI API 문서](https://platform.openai.com/docs)
 - [ChromaDB](https://www.trychroma.com/)
+
+---
+
+## 📎 라이선스
+
+해당 프로젝트는 **학습 및 비상업적 목적**으로 사용 가능합니다.  
+문서 및 모델 API 사용에는 각 플랫폼의 라이선스가 적용됩니다.
