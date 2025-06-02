@@ -74,3 +74,40 @@ def get_chain():
     if "chat_chain" not in st.session_state:
         st.session_state.chat_chain = initialize_chain()
     return st.session_state.chat_chain
+
+# Streamlit UI 구현
+def main():
+    st.set_page_config(page_title="KB 부동산 보고서 챗봇", page_icon="")
+    st.title("KB 부동산 보고서 AI 어드바이저")
+    st.caption("2024 KB 부동산 보고서 기반 질의응답 시스템")
+
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    if "chat_chain" not in st.session_state:
+        st.session_state.chat_chain = initialize_chain()
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    if prompt := st.chat_input("부동산 관련 질문을 입력하세요"):
+
+        with st.chat_message("user"):
+            st.markdown(prompt)
+        st.session_state.messages.append({"role": "user", "content": prompt})
+
+        chain = get_chain()
+
+        with st.chat_message("assistant"):
+            with st.spinner("답변 생성 중..."):
+                response = chain.invoke(
+                    {"question": prompt},
+                    {"configurable": {"session_id": "streamlit_session"}}
+                )
+                st.markdown(response)
+
+        st.session_state.messages.append({"role": "assistant", "content": response})
+
+if __name__ == "__main__":
+    main()
