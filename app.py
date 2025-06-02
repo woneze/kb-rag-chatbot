@@ -13,7 +13,7 @@ from langchain_openai import ChatOpenAI
 
 
 # 설정
-PDF_PATH = "data/2024_KB_부동산_보고서_최종.pdf"
+PDF_PATH = "data/2025 KB 부동산 보고서.pdf"
 
 # 환경 변수 로드
 load_dotenv()
@@ -79,7 +79,7 @@ def get_chain():
 def main():
     st.set_page_config(page_title="KB 부동산 보고서 챗봇", page_icon="")
     st.title("KB 부동산 보고서 AI 어드바이저")
-    st.caption("2024 KB 부동산 보고서 기반 질의응답 시스템")
+    st.caption("2025 KB 부동산 보고서 기반 질의응답 시스템")
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
