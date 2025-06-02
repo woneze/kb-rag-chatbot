@@ -13,7 +13,7 @@ from langchain_openai import ChatOpenAI
 
 
 # 설정
-PDF_PATH = "data/2025 KB 부동산 보고서.pdf"
+PDF_PATH = "data/부동산보고서.pdf"
 
 # 환경 변수 로드
 load_dotenv()
@@ -39,7 +39,7 @@ def initialize_chain():
     vectorstore = initialize_vectorstore()
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
-    template = """당신은 KB 부동산 보고서 전문가입니다. 다음 정보를 바탕으로 사용자의 질문에 답변해주세요.
+    template = """당신은 부동산 보고서 전문가입니다. 다음 정보를 바탕으로 사용자의 질문에 답변해주세요.
     컨텍스트: {context}
     """
     prompt = ChatPromptTemplate.from_messages([
@@ -77,9 +77,9 @@ def get_chain():
 
 # Streamlit UI 구현
 def main():
-    st.set_page_config(page_title="KB 부동산 보고서 챗봇", page_icon="")
-    st.title("KB 부동산 보고서 AI 어드바이저")
-    st.caption("2025 KB 부동산 보고서 기반 질의응답 시스템")
+    st.set_page_config(page_title="부동산 보고서 챗봇", page_icon="")
+    st.title("부동산 보고서 AI 어드바이저")
+    st.caption("2025 부동산 보고서 기반 질의응답 시스템")
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
