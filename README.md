@@ -1,10 +1,10 @@
-# 🏡 KB 부동산 RAG 챗봇
+# 🏡 부동산 RAG 챗봇
 
-**2024 KB 부동산 보고서**를 기반으로 질문에 자동으로 응답하는 **RAG(Retrieval-Augmented Generation)** 기반 AI 챗봇입니다.  
+**2025 부동산 보고서**를 기반으로 질문에 자동으로 응답하는 **RAG(Retrieval-Augmented Generation)** 기반 AI 챗봇입니다.  
 PDF 문서에서 지식을 추출하고, 벡터 검색 + GPT-4o-mini 모델을 통해 실시간 질문 응답이 가능합니다.
 
 <p align="center">
-  <img src="./assets/pipeline.png" alt="KB RAG Pipeline" width="720"/>
+  <img src="./assets/pipeline.png" alt="RAG Pipeline" width="720"/>
 </p>
 
 ---
@@ -47,10 +47,10 @@ PDF 문서에서 지식을 추출하고, 벡터 검색 + GPT-4o-mini 모델을 �
 ## 📁 프로젝트 구조
 
 ```
-📦 2024_KB_chatbot/
+📦 real_estate_chatbot/
 ├── app.py                   
 ├── data/                    
-│   └── 2024_KB_부동산_보고서_최종.pdf
+│   └── 부동산보고서.pdf
 ├── .env                      
 ├── requirements.txt
 └── README.md        
@@ -80,30 +80,23 @@ PDF 문서에서 지식을 추출하고, 벡터 검색 + GPT-4o-mini 모델을 �
 ## 📸 미리보기 (UI 예시)
 
 <p align="center">
-  <img src="./assets/kb_chatbot_demo.png" alt="KB Chatbot Preview" width="640"/>
+  <img src="assets/demo_image.png" alt="Chatbot Preview" width="640"/>
 </p>
 
 ---
 
 ## ✅ 사용 예시
 
-- 질문: *"KB는 올해 아파트 매매 시장을 어떻게 전망하고 있나요?"*
+- 질문: *"올해 아파트 매매 시장을 어떻게 전망하고 있나요?"*
 - 응답: *(보고서의 실제 내용을 기반으로 GPT가 응답)*
 
 ---
 
 ## 📌 참고
 
-- 보고서 출처: [KB부동산 리브온](https://kbrealestate.com)
+- 보고서 출처: [2025 KB 부동산 보고서](https://www.kbfg.com/kbresearch/report/reportView.do?reportId=2000524)
 - Chat Model: GPT-4o-mini (`gpt-4o-mini`)
 
 - [LangChain 공식 문서](https://docs.langchain.com/)
 - [OpenAI API 문서](https://platform.openai.com/docs)
 - [ChromaDB](https://www.trychroma.com/)
-
----
-
-## 📎 라이선스
-
-해당 프로젝트는 **학습 및 비상업적 목적**으로 사용 가능합니다.  
-문서 및 모델 API 사용에는 각 플랫폼의 라이선스가 적용됩니다.
