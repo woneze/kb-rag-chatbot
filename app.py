@@ -3,6 +3,8 @@ import streamlit as st
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_openai import OpenAIEmbeddings
+from langchain_chroma import Chroma
 
 
 # 설정
@@ -18,3 +20,10 @@ def process_pdf():
     documents = loader.load()
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     return text_splitter.split_documents(documents)
+
+# 벡터 저장소 초기화
+@st.cache_resource
+def initialize_vectorstore():
+    chunks = process_pdf()
+    embeddings = OpenAIEmbeddings(api_key=api_key)
+    return Chroma.from_documents(chunks, embeddings)
