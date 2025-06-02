@@ -54,7 +54,7 @@ PDF 문서에서 지식을 추출하고, 벡터 검색 + GPT-4o-mini 모델을 �
 ├── .env                      
 ├── requirements.txt
 └── README.md        
-
+```
 
 ---
 
