@@ -68,3 +68,9 @@ def initialize_chain():
         input_messages_key="question",
         history_messages_key="chat_history",
     )
+
+# 세션 상태 관리용 헬퍼 함수
+def get_chain():
+    if "chat_chain" not in st.session_state:
+        st.session_state.chat_chain = initialize_chain()
+    return st.session_state.chat_chain
